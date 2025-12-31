@@ -1,6 +1,8 @@
 .rtsp-form {
+  height: 500px;
+  border-radius: 10px;
   margin-top: 100px;
-  padding: 10px 10px;
+  padding: 50px 10px;
   background-color: white;
   max-width: 500px;
   display: flex;
@@ -10,6 +12,7 @@
 
 .rtsp-form input {
   width: 300px;
+  margin-top: 20px;
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
@@ -17,16 +20,26 @@
 
 .rtsp-form button {
   padding: 10px;
+  width: 200px;
+  font-size: 20px;
+  margin-top: 80px;
   border-radius: 6px;
   background-color: #27ae60;
   border: none;
   cursor: pointer;
+  color: white;
 }
 
 .error {
+  font-size: 20px;
   color: #c0392b;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 .success {
+  font-size: 20px;
+  margin-top: 50px;
+  margin-bottom: 20px;
   color: #27ae60;
 }

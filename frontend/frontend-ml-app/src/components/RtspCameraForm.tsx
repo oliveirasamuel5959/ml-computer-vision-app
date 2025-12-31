@@ -14,12 +14,45 @@ export function RtspCameraForm() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  const APIURL = 'http://localhost:5000/api/camera/connect';
+
   const handleSubmit = async (e) => {
+
     e.preventDefault();
-    
+
     const rtsp =  `rtsp://${cameraUser}:${cameraPassword}@${cameraIP}:${cameraPort}/stream`;
 
     console.log(rtsp);
+
+    try {
+      
+      setLoading(true);
+
+      const response = await fetch(APIURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ rtsp_url: rtsp }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Falha ao conectar à câmera");
+      }
+
+      setSuccess("Câmera conectada com sucesso");
+
+      setRtspUrl("");
+
+    } catch (err) {
+
+      setError(err.message);
+
+    } finally {
+
+      setLoading(false);
+
+    }
 
   }
 
