@@ -19,6 +19,7 @@ export function AddVideoStreamModal ({ isOpen, onClose, onCreate }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     onCreate(form);
+
   };
 
   return (
