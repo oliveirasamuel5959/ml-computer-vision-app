@@ -1,20 +1,34 @@
+import { useState } from "react";
 import AddPlusCameraIcon from '../assets/plus.png';
 import './CameraCard.css';
+import { RtspCameraForm } from './RtspCameraForm';
 
 export function CameraCard() {
+
+  const [buttonState, setButtonState] = useState(false);
+
+  const handleButtonClick = () => {
+    setButtonState(true);
+  }
+
   return (
     <>
-      <div className='card-container'>
-        <div className='card'>
-          <button className="add-camera-button">
-            <img src={AddPlusCameraIcon} alt="Adicionar" />
-          </button>
-          <div className='card-content'>
-            <h3>Add Camera</h3>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+      {
+        buttonState && (
+          <RtspCameraForm />
+        )}
+      {!buttonState && (
+          <div className='card-container'>
+            <div className='card'>  
+              <button onClick={handleButtonClick} className="add-camera-button">
+                <img src={AddPlusCameraIcon} alt="Adicionar" />
+              </button>
+              <div className='card-content'>
+                <h3>Add Camera</h3>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
     </>
   )
 }

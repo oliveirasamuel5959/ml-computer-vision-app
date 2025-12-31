@@ -1,0 +1,32 @@
+.rtsp-form {
+  margin-top: 100px;
+  padding: 10px 10px;
+  background-color: white;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rtsp-form input {
+  width: 300px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.rtsp-form button {
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #27ae60;
+  border: none;
+  cursor: pointer;
+}
+
+.error {
+  color: #c0392b;
+}
+
+.success {
+  color: #27ae60;
+}

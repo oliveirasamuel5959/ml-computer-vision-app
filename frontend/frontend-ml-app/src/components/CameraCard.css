@@ -9,7 +9,7 @@
 
 .add-camera-button {
   position: absolute;
-  top: 30%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: none;
@@ -32,9 +32,11 @@
   transform: scale(1.05);
 }
 
-.card-content {
+.card-content h3 {
+  text-align: center;
   padding-top: 400px;
   padding-left: 10px;
   padding-right: 10px;
+  padding-bottom: 10px;
   font-size: 15px;
 }
