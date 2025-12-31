@@ -3,6 +3,7 @@ import './App.css'
 import { AddVideoStreamModal } from "./components/AddVideoStreamModal";
 import { VideoStream } from "./components/VideoStream";
 import SidebarLayout from "./components/Sidebar";
+import plusIcon from "./assets/add.png";
 
 function App() {
 
@@ -36,14 +37,21 @@ function App() {
   return (
     <div className="root-container">
       <SidebarLayout>
-        <h1>Video Streams</h1>
+        <h1 className="text-3xl font-bold text-gray-900 text-center mb-6">
+          Video Streams
+        </h1>
 
         {
           !isLoading && (
             <>
-              <button onClick={() => setIsModalOpen(true)}>
-                Add New Stream
-              </button>
+              <div className="flex justify-center items-center h-full">
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="bg-blue-5 text-white p-2 flex items-center justify-center cursor-pointer"
+                >
+                  <img src={plusIcon} alt="Add" className="w-20 h-20" />
+                </button>
+              </div>
 
               <AddVideoStreamModal
                 isOpen={isModalOpen}
