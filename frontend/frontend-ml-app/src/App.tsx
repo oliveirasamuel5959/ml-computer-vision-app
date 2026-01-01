@@ -4,6 +4,7 @@ import { AddVideoStreamModal } from "./components/AddVideoStreamModal";
 import { VideoStream } from "./components/VideoStream";
 import SidebarLayout from "./components/Sidebar";
 import plusIcon from "./assets/add.png";
+import { CameraRunningStatus } from "./components/CameraRunningStatus";
 
 function App() {
 
@@ -63,11 +64,11 @@ function App() {
         }
         {
           isLoading && (
-            <>
-              <VideoStream 
+            <div>
+              <CameraRunningStatus
                 status={status}
               />
-            </>
+            </div>
           )
         }
     </SidebarLayout>
