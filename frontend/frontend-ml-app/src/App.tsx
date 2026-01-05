@@ -1,7 +1,6 @@
 import { useState } from "react";
 import './App.css'
 import { AddVideoStreamModal } from "./components/AddVideoStreamModal";
-import { VideoStream } from "./components/VideoStream";
 import SidebarLayout from "./components/Sidebar";
 import plusIcon from "./assets/add.png";
 import { CameraRunningStatus } from "./components/CameraRunningStatus";
@@ -10,8 +9,10 @@ function App() {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [status, setStatus] = useState<string>("");
+  const [cameraBackend, setCameraBackend] = useState([{}]);
   const [error, setError] = useState<boolean>(false);
+
+  const now = new Date();
 
   const handleCreateStream = (data: {
     name: string;
@@ -21,7 +22,30 @@ function App() {
   }) => {
 
     setLoading(true);
-    setStatus("connecting");
+
+    setCameraBackend([
+    {
+      id: 1,
+      name: 'Camera Vision',
+      status: "running",
+      streamStatus: "connected",
+      sourceType: "rtsp",
+      streamUrl: "rtsp://...",
+      fps: 30,
+      resolution: '1920x1080',
+      lastFrameAt: now
+    }, {
+      id: 1,
+      name: 'Camera Vision',
+      status: "connecting",
+      streamStatus: "stopped",
+      sourceType: "rtsp",
+      streamUrl: "rtsp://...",
+      fps: 22,
+      resolution: '1920x1080',
+      lastFrameAt: now
+    }
+  ]);
 
     console.log("Creating stream:", data);
 
@@ -66,7 +90,7 @@ function App() {
           isLoading && (
             <div>
               <CameraRunningStatus
-                status={status}
+                cameraBackend={cameraBackend}
               />
             </div>
           )
