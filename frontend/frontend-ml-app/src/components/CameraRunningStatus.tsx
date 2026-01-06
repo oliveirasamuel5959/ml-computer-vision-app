@@ -45,7 +45,7 @@ export function CameraRunningStatus({ cameraBackend }) {
                 </span>
                 {
                   stream.status === 'running' ? (
-                    <button className="m-5 cursor-pointer border-none bg-transparent">
+                    <button className="ml-2 cursor-pointer border-none bg-transparent">
                       <img
                         src={openStreamIcon}
                         alt="Open stream"
@@ -53,7 +53,7 @@ export function CameraRunningStatus({ cameraBackend }) {
                       />
                     </button>
                   ) : stream.status == 'error' ? (
-                    <button className="m-5 border-none bg-transparent">
+                    <button className="ml-2px  border-none bg-transparent">
                       <img
                         src={errorStreamIcon}
                         alt="Camera error"

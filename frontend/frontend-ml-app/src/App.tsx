@@ -26,7 +26,7 @@ function App() {
     setCameraBackend([
     {
       id: 1,
-      name: 'Camera Vision',
+      name: 'CV Car Parking',
       status: "running",
       streamStatus: "connected",
       sourceType: "rtsp",
@@ -36,7 +36,7 @@ function App() {
       lastFrameAt: now
     }, {
       id: 1,
-      name: 'Camera Vision',
+      name: 'CV Robot Area',
       status: "connecting",
       streamStatus: "stopped",
       sourceType: "rtsp",
