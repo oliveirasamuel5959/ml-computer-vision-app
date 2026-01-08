@@ -1,7 +1,7 @@
-import openStreamIcon from '../assets/openStream.png';
-import errorStreamIcon from '../assets/error.png';
+import openStreamIcon from '../../assets/images/icons/openStream.png'
+import errorStreamIcon from '../../assets/images/icons/error.png';
 
-export function CameraRunningStatus({ cameraBackend }) {
+export function StreamStatusTable({ cameraBackend }) {
   return (
     <div className="w-full overflow-x-auto p-4">
       <table className="w-full border border-gray-200 rounded-lg overflow-hidden">

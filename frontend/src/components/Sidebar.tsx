@@ -1,10 +1,11 @@
+import { Link } from "react-router";
 import { useState } from "react";
 
 interface SidebarLayoutProps {
   children: React.ReactNode;
 }
 
-export default function SidebarLayout({ children }: SidebarLayoutProps) {
+export function Sidebar({ children }: SidebarLayoutProps) {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -29,8 +30,12 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
 
         {/* Menu */}
         <nav className="p-2 space-y-1">
-          <SidebarItem label="Home" collapsed={collapsed} />
-          <SidebarItem label="Streams" collapsed={collapsed} />
+          <Link to="/">
+            <SidebarItem label="Home" collapsed={collapsed} />
+          </Link>
+          <Link to="/add-streams">
+            <SidebarItem label="Streams" collapsed={collapsed} />
+          </Link>
           <SidebarItem label="Workflows" collapsed={collapsed} />
           <SidebarItem label="Settings" collapsed={collapsed} />
         </nav>
