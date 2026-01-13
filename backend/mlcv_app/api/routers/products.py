@@ -8,5 +8,5 @@ router = APIRouter()
   summary='Query all users',
   status_code=status.HTTP_200_OK,
 )
-async def read_users():
+async def read_products():
   return products
