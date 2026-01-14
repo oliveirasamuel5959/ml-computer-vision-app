@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Sidebar } from "../components/Sidebar";
+import { formatMoney } from "../utils/money";
 
 export function HomePage() {
   const API_URL = "http://localhost:8000/";
@@ -59,7 +60,7 @@ export function HomePage() {
 
                 {/* Price */}
                 <p className="text-lg font-semibold text-green-500">
-                  ${(product.priceCents / 100).toFixed(2)}
+                  ${formatMoney(product.priceCents)}
                 </p>
               </div>
             </div>
