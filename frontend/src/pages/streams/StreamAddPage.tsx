@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { AddVideoStreamModal } from "../components/AddVideoStreamModal";
-import { StreamStatusTable } from "./streams/StreamStatusTable";
-import { Sidebar } from '../components/Sidebar';
-import plusIcon from "../assets/images/icons/add.png";
+import { AddVideoStreamModal } from "./AddVideoStreamModal";
+import { StreamStatusTable } from "./StreamStatusTable";
+import { Sidebar } from '../../components/Sidebar';
+import plusIcon from "../../assets/images/icons/add.png";
 
 export function StreamAddPage() {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [cameraBackend, setCameraBackend] = useState([{}]);
+  const [notification, setNotification] = useState({ show: false, message: "", success: false });
   // const [error, setError] = useState<boolean>(false);
 
   const now = new Date();
@@ -51,6 +52,13 @@ export function StreamAddPage() {
     setIsModalOpen(false);
   };
 
+  const handleNotification = (message: string, success: boolean) => {
+    setNotification({ show: true, message, success });
+    setTimeout(() => {
+      setNotification({ show: false, message: "", success: false });
+    }, 3000);
+  };
+
   return (
 
     <>
@@ -77,6 +85,7 @@ export function StreamAddPage() {
                   isOpen={isModalOpen}
                   onClose={() => setIsModalOpen(false)}
                   onCreate={handleCreateStream}
+                  onNotification={handleNotification}
                 />
               </>
             )
@@ -92,6 +101,17 @@ export function StreamAddPage() {
           }
         </Sidebar>
       </div>
+
+      {/* Notification */}
+      {notification.show && (
+        <div
+          className={`fixed top-4 right-4 px-6 py-3 rounded-lg text-white font-semibold shadow-lg transition-opacity duration-300 ${
+            notification.success ? "bg-green-500" : "bg-red-500"
+          }`}
+        >
+          {notification.message}
+        </div>
+      )}
     </>
   );
 }

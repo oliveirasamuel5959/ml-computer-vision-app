@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Sidebar } from "../components/Sidebar";
-import { formatMoney } from "../utils/money";
+import { Sidebar } from "../../components/Sidebar";
+import { formatMoney } from "../../utils/money";
 
 export function HomePage() {
   const API_URL = "http://localhost:8000/";

@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import axios from "axios";
+import { useState } from "react";
 import "./AddVideoStreamModal.css";
 
-export function AddVideoStreamModal ({ isOpen, onClose, onCreate }) {
+export function AddVideoStreamModal ({ isOpen, onClose, onCreate, onNotification }) {
   const [form, setForm] = useState({
     name: "",
     streamType: "",
     rtspUrl: "",
     workflowId: ""
   });
+
+  const [createdStream, setCreatedStream] = useState({});
 
   if (!isOpen) return null;
 
@@ -16,10 +19,18 @@ export function AddVideoStreamModal ({ isOpen, onClose, onCreate }) {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     onCreate(form);
 
+    try {
+      const response = await axios.post("http://localhost:8000/stream", form);
+      onNotification("Stream created successfully!", true);
+      setCreatedStream(response.data);
+    } catch (error) {
+      console.error("Error creating stream:", error);
+      onNotification("Failed to create stream.", false);
+    }
   };
 
   return (

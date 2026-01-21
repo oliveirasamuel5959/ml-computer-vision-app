@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import openStreamIcon from '../../assets/images/icons/openStream.png'
 import errorStreamIcon from '../../assets/images/icons/error.png';
 
@@ -45,13 +46,13 @@ export function StreamStatusTable({ cameraBackend }) {
                 </span>
                 {
                   stream.status === 'running' ? (
-                    <button className="ml-2 cursor-pointer border-none bg-transparent">
+                    <Link to={`/streams/live/${stream.id}`} className="ml-2 cursor-pointer inline-block">
                       <img
                         src={openStreamIcon}
                         alt="Open stream"
                         className="h-5 w-5 object-cover"
                       />
-                    </button>
+                    </Link>
                   ) : stream.status == 'error' ? (
                     <button className="ml-2px  border-none bg-transparent">
                       <img
