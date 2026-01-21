@@ -23,37 +23,12 @@ export function StreamAddPage() {
 
     setLoading(true);
 
-    setCameraBackend([
-      {
-        id: 1,
-        name: 'CV Car Parking',
-        status: "running",
-        streamStatus: "connected",
-        sourceType: "rtsp",
-        streamUrl: "rtsp://...",
-        fps: 30,
-        resolution: '1920x1080',
-        lastFrameAt: now
-      }, {
-        id: 1,
-        name: 'CV Robot Area',
-        status: "connecting",
-        streamStatus: "stopped",
-        sourceType: "rtsp",
-        streamUrl: "rtsp://...",
-        fps: 22,
-        resolution: '1920x1080',
-        lastFrameAt: now
-      }
-    ]);
-
-    console.log("Creating stream:", data);
-
     setIsModalOpen(false);
   };
 
-  const handleNotification = (message: string, success: boolean) => {
+  const handleNotification = (message: string, success: boolean, data: any) => {
     setNotification({ show: true, message, success });
+    setCameraBackend(data);
     setTimeout(() => {
       setNotification({ show: false, message: "", success: false });
     }, 3000);

@@ -20,40 +20,40 @@ export function StreamStatusTable({ cameraBackend }) {
         </thead>
 
         <tbody className="divide-y divide-gray-200">
-          {cameraBackend.map((stream) => (
+          {cameraBackend && (
             <tr
-              key={stream.id}
+              key={cameraBackend.id}
               className="hover:bg-gray-50 transition-colors"
             >
               <td className="px-4 py-3 text-sm text-gray-800">
-                {stream.name}
+                {cameraBackend.name}
               </td>
 
               <td className="px-4 py-3">
                 <span
                   className={`px-2 py-1 text-xs font-medium rounded-full
                     ${
-                      stream.status === 'running'
+                      cameraBackend.status === 'running'
                         ? 'bg-green-100 text-green-700'
-                        : stream.status === 'connecting'
+                        : cameraBackend.status === 'connecting'
                         ? 'bg-yellow-100 text-yellow-700'
-                        : stream.status === 'error'
+                        : cameraBackend.status === 'error'
                         ? 'bg-red-100 text-red-700'
                         : 'bg-gray-100 text-gray-600'
                     }`}
                 >
-                  {stream.status}
+                  {cameraBackend.status}
                 </span>
                 {
-                  stream.status === 'running' ? (
-                    <Link to={`/streams/live/${stream.id}`} className="ml-2 cursor-pointer inline-block">
+                  cameraBackend.status === 'running' ? (
+                    <Link to={`/streams/live/${cameraBackend.id}`} className="ml-2 cursor-pointer inline-block">
                       <img
                         src={openStreamIcon}
                         alt="Open stream"
                         className="h-5 w-5 object-cover"
                       />
                     </Link>
-                  ) : stream.status == 'error' ? (
+                  ) : cameraBackend.status == 'error' ? (
                     <button className="ml-2px  border-none bg-transparent">
                       <img
                         src={errorStreamIcon}
@@ -66,32 +66,32 @@ export function StreamStatusTable({ cameraBackend }) {
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {stream.streamStatus}
+                {cameraBackend.streamStatus}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {stream.sourceType}
+                {cameraBackend.sourceType}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {stream.streamUrl}
+                {cameraBackend.streamUrl}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {stream.fps ?? '—'}
+                {cameraBackend.fps ?? '—'}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {stream.resolution ?? '—'}
+                {cameraBackend.resolution ?? '—'}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {stream.lastFrameAt
-                  ? new Date(stream.lastFrameAt).toLocaleTimeString()
+                {cameraBackend.lastFrameAt
+                  ? new Date(cameraBackend.lastFrameAt).toLocaleTimeString()
                   : '—'}
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

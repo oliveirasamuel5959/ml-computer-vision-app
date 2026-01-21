@@ -1,19 +1,28 @@
 from pydantic import BaseModel
 from typing import Optional
+from datetime import datetime
 
 
 class StreamCreate(BaseModel):
     """Schema for creating a new video stream"""
     name: str
     streamType: str
-    rtspUrl: str
+    streamUrl: str
     workflowId: Optional[str] = None
 
 
-class Stream(StreamCreate):
-    """Schema for a video stream with ID and status"""
+class Stream(BaseModel):
+    """Schema for a video stream with all details"""
     id: int
-    status: str = "inactive"
+    name: str
+    streamType: str
+    sourceType: str
+    streamUrl: str
+    fps: int
+    resolution: str
+    lastFrameAt: Optional[str] = None
+    workflowId: Optional[str] = None
+    status: str
 
     class Config:
         from_attributes = True

@@ -24,9 +24,13 @@ async def create_video_stream(stream_data: StreamCreate):
     "id": 1,
     "name": stream_data.name,
     "streamType": stream_data.streamType,
-    "rtspUrl": stream_data.rtspUrl,
+    "sourceType": "rtsp",
+    "streamUrl": stream_data.streamUrl,
+    "fps": 30,
+    "resolution": '1920x1080',
+    "lastFrameAt": "now",
     "workflowId": stream_data.workflowId,
-    "status": "inactive"
+    "status": "running"
   }
 
   return new_stream

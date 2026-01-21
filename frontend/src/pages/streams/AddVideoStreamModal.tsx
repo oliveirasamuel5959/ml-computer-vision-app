@@ -6,11 +6,10 @@ export function AddVideoStreamModal ({ isOpen, onClose, onCreate, onNotification
   const [form, setForm] = useState({
     name: "",
     streamType: "",
-    rtspUrl: "",
+    streamUrl: "",
     workflowId: ""
   });
 
-  const [createdStream, setCreatedStream] = useState({});
 
   if (!isOpen) return null;
 
@@ -23,10 +22,12 @@ export function AddVideoStreamModal ({ isOpen, onClose, onCreate, onNotification
     e.preventDefault();
     onCreate(form);
 
+    console.log("Submitting form:", form);
+
     try {
       const response = await axios.post("http://localhost:8000/stream", form);
-      onNotification("Stream created successfully!", true);
-      setCreatedStream(response.data);
+      console.log("Stream created:", response.data);
+      onNotification("Stream created successfully!", true, response.data);
     } catch (error) {
       console.error("Error creating stream:", error);
       onNotification("Failed to create stream.", false);
@@ -77,8 +78,8 @@ export function AddVideoStreamModal ({ isOpen, onClose, onCreate, onNotification
               <label>RTSP URL</label>
               <input
                 type="text"
-                name="rtspUrl"
-                value={form.rtspUrl}
+                name="streamUrl"
+                value={form.streamUrl}
                 onChange={handleChange}
                 placeholder="rtsp://user:password@host:port/stream"
               />
