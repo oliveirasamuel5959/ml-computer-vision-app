@@ -1,30 +1,27 @@
-import dotenv
-import os
-from alembic import context
 from logging.config import fileConfig
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
 from alembic import context
-from mlcv_app.core.config import settings
-from mlcv_app.core.base import Base
-import mlcv_app.models.stream
+from sqlalchemy import engine_from_config, pool
 
-dotenv.load_dotenv()
+from mlcv_app.core.base import Base
+from mlcv_app.models import stream  # noqa
+from mlcv_app.core.config import settings
 
 config = context.config
 
-if config.config_file_name is not None:
-    fileConfig(config.config_file_name)
+config.set_main_option(
+    "sqlalchemy.url",
+    settings.database_url,
+)
 
-target_metadata = Base.metadata    
+fileConfig(config.config_file_name)
 
-def run_migrations_offline() -> None:
+target_metadata = Base.metadata
 
-    url = config.get_main_option("sqlalchemy.url", os.getenv("DATABASE_URL", ""))
+
+def run_migrations_offline():
     context.configure(
-        url=url,
+        url=settings.database_url,
         target_metadata=target_metadata,
-        render_as_batch=True,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
     )
@@ -33,23 +30,22 @@ def run_migrations_offline() -> None:
         context.run_migrations()
 
 
-def run_migrations_online() -> None:
-
+def run_migrations_online():
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        config.get_section(config.config_ini_section),
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, 
+            connection=connection,
             target_metadata=target_metadata,
-            render_as_batch=True
-        )   
+        )
 
         with context.begin_transaction():
             context.run_migrations()
+
 
 if context.is_offline_mode():
     run_migrations_offline()
