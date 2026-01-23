@@ -13,7 +13,7 @@ SessionLocal = sessionmaker(
     autoflush=False,
 )
 
-def get_db():
+def get_Session():
     db = SessionLocal()
     try:
         yield db
