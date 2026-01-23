@@ -1,26 +1,42 @@
-import uuid
-from sqlalchemy import String, DateTime, func
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    DateTime,
+)
+from sqlalchemy.sql import func
 from mlcv_app.core.base import Base
 
 class Stream(Base):
     __tablename__ = "streams"
 
-    id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
-        primary_key=True,
-        default=uuid.uuid4,
-    )
+    id = Column(Integer, primary_key=True, index=True)
 
-    name: Mapped[str] = mapped_column(
-        String(255),
-        nullable=False,
-        index=True,
-    )
+    name = Column(String(255), nullable=False)
 
-    created_at: Mapped[DateTime] = mapped_column(
+    stream_type = Column(String(50), nullable=False)
+    source_type = Column(String(50), nullable=False)
+
+    stream_url = Column(String(2048), nullable=False)
+
+    fps = Column(Integer, nullable=False, default=0)
+    resolution = Column(String(50), nullable=False, default="unknown")
+
+    last_frame_at = Column(DateTime(timezone=True), nullable=True)
+
+    workflow_id = Column(String(255), nullable=True)
+
+    status = Column(String(50), nullable=False, default="inactive")
+
+    created_at = Column(
         DateTime(timezone=True),
         server_default=func.now(),
+        nullable=False,
+    )
+
+    updated_at = Column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
         nullable=False,
     )

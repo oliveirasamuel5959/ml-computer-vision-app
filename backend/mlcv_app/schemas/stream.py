@@ -10,6 +10,8 @@ class StreamCreate(BaseModel):
     streamUrl: str
     workflowId: Optional[str] = None
 
+    class Config:
+        populate_by_name = True
 
 class Stream(BaseModel):
     """Schema for a video stream with all details"""
