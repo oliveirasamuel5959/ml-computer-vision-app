@@ -1,0 +1,33 @@
+The following packages are already present in the pyproject.toml and will be skipped:
+
+  - fastapi
+
+If you want to update it to the latest compatible version, you can use `poetry update package`.
+If you prefer to upgrade it to the latest available version, you can use `poetry add package@latest`.
+
+Using version ^0.40.0 for uvicorn
+Using version ^2.0.46 for sqlalchemy
+Using version ^0.31.0 for asyncpg
+Using version ^1.18.1 for alembic
+Using version ^1.2.1 for python-dotenv
+Using version ^2.12.0 for pydantic-settings
+
+Updating dependencies
+Resolving dependencies...
+
+Package operations: 12 installs, 0 updates, 0 removals
+
+  - Installing greenlet (3.3.0)
+  - Installing markupsafe (3.0.3)
+  - Installing mako (1.3.10)
+  - Installing httptools (0.7.1)
+  - Installing python-dotenv (1.2.1)
+  - Installing pyyaml (6.0.3)
+  - Installing sqlalchemy (2.0.46)
+  - Installing watchfiles (1.1.1)
+  - Installing websockets (16.0)
+  - Installing alembic (1.18.1)
+  - Installing asyncpg (0.31.0)
+  - Installing pydantic-settings (2.12.0)
+
+Writing lock file
