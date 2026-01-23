@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { AddVideoStreamModal } from "./AddVideoStreamModal";
 import { StreamStatusTable } from "./StreamStatusTable";
 import { Sidebar } from '../../components/Sidebar';
@@ -20,15 +21,13 @@ export function StreamAddPage() {
     rtspUrl: string;
     workflowId: string;
   }) => {
-
     setLoading(true);
-
     setIsModalOpen(false);
   };
 
-  const handleNotification = (message: string, success: boolean, data: any) => {
-    setNotification({ show: true, message, success });
+  const handleNotification = (message: string, success: boolean, data?: any) => {
     setCameraBackend(data);
+    setNotification({ show: true, message, success });
     setTimeout(() => {
       setNotification({ show: false, message: "", success: false });
     }, 3000);

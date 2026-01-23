@@ -22,7 +22,7 @@ export function AddVideoStreamModal ({ isOpen, onClose, onCreate, onNotification
     e.preventDefault();
     onCreate(form);
 
-    console.log("Submitting form:", form);
+    // console.log("Submitting form:", form);
 
     try {
       const response = await axios.post("http://localhost:8000/stream", form);

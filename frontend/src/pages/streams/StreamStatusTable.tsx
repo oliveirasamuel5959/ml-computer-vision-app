@@ -3,6 +3,9 @@ import openStreamIcon from '../../assets/images/icons/openStream.png'
 import errorStreamIcon from '../../assets/images/icons/error.png';
 
 export function StreamStatusTable({ cameraBackend }) {
+
+  console.log("Rendering StreamStatusTable with data:", cameraBackend);
+  
   return (
     <div className="w-full overflow-x-auto p-4">
       <table className="w-full border border-gray-200 rounded-lg overflow-hidden">
@@ -66,15 +69,15 @@ export function StreamStatusTable({ cameraBackend }) {
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {cameraBackend.streamStatus}
+                {cameraBackend.stream_type}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {cameraBackend.sourceType}
+                {cameraBackend.source_type}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {cameraBackend.streamUrl}
+                {cameraBackend.stream_url}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
@@ -86,8 +89,8 @@ export function StreamStatusTable({ cameraBackend }) {
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {cameraBackend.lastFrameAt
-                  ? new Date(cameraBackend.lastFrameAt).toLocaleTimeString()
+                {cameraBackend.last_frame_at
+                  ? new Date(cameraBackend.last_frame_at).toLocaleTimeString()
                   : '—'}
               </td>
             </tr>
