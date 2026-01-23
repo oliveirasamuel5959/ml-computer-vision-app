@@ -1,14 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
 from mlcv_app.data.products import products
 from mlcv_app.schemas.stream import StreamCreate, Stream
-from mlcv_app.core.database import get_session
+from mlcv_app.core.database import get_db as get_session
 from mlcv_app.models.stream import Stream as StreamModel
 
 router = APIRouter()
 
 @router.get(
   '/',
-  summary='Query all users',
+  summary='Query all',
   status_code=status.HTTP_200_OK,
 )
 async def read_products():
@@ -18,9 +19,10 @@ async def read_products():
   '/',
   summary='Create a new video stream',
   status_code=status.HTTP_201_CREATED,
-  response_model=Stream
 )
-async def create_video_stream(stream_data: StreamCreate, db_session=Depends(get_session)):
+async def create_video_stream(stream_data: StreamCreate, db: Session = Depends(get_session)):
+
+  print("Received stream data:", stream_data)
 
   stream_model = StreamModel(
     name=stream_data.name,
@@ -33,8 +35,8 @@ async def create_video_stream(stream_data: StreamCreate, db_session=Depends(get_
     workflow_id=stream_data.workflowId,
   )
   
-  db_session.add(stream_model)
-  db_session.commit()
-  db_session.refresh(stream_model)
+  db.add(stream_model)
+  db.commit()
+  db.refresh(stream_model)
 
   return stream_model
