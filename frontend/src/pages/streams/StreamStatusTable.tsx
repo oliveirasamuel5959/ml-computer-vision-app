@@ -2,9 +2,9 @@ import { Link } from "react-router";
 import openStreamIcon from '../../assets/images/icons/openStream.png'
 import errorStreamIcon from '../../assets/images/icons/error.png';
 
-export function StreamStatusTable({ cameraBackend }) {
+export function StreamStatusTable({ streams }) {
 
-  console.log("Rendering StreamStatusTable with data:", cameraBackend);
+  console.log("Rendering streamstatusTable with data:", streams);
   
   return (
     <div className="w-full overflow-x-auto p-4">
@@ -23,78 +23,80 @@ export function StreamStatusTable({ cameraBackend }) {
         </thead>
 
         <tbody className="divide-y divide-gray-200">
-          {cameraBackend && (
+          {streams?.map((stream) => (
             <tr
-              key={cameraBackend.id}
+              key={stream.id}
               className="hover:bg-gray-50 transition-colors"
             >
               <td className="px-4 py-3 text-sm text-gray-800">
-                {cameraBackend.name}
+                {stream.name}
               </td>
 
               <td className="px-4 py-3">
                 <span
                   className={`px-2 py-1 text-xs font-medium rounded-full
                     ${
-                      cameraBackend.status === 'running'
+                      stream.status === 'running'
                         ? 'bg-green-100 text-green-700'
-                        : cameraBackend.status === 'connecting'
+                        : stream.status === 'connecting'
                         ? 'bg-yellow-100 text-yellow-700'
-                        : cameraBackend.status === 'error'
+                        : stream.status === 'error'
                         ? 'bg-red-100 text-red-700'
                         : 'bg-gray-100 text-gray-600'
                     }`}
                 >
-                  {cameraBackend.status}
+                  {stream.status}
                 </span>
-                {
-                  cameraBackend.status === 'running' ? (
-                    <Link to={`/streams/live/${cameraBackend.id}`} className="ml-2 cursor-pointer inline-block">
-                      <img
-                        src={openStreamIcon}
-                        alt="Open stream"
-                        className="h-5 w-5 object-cover"
-                      />
-                    </Link>
-                  ) : cameraBackend.status == 'error' ? (
-                    <button className="ml-2px  border-none bg-transparent">
-                      <img
-                        src={errorStreamIcon}
-                        alt="Camera error"
-                        className="h-5 w-5 object-cover"
-                      />
-                    </button>
-                  ) : null
-                }
+
+                {stream.status === 'running' && (
+                  <Link
+                    to={`/streams/live/${stream.id}`}
+                    className="ml-2 inline-block"
+                  >
+                    <img
+                      src={openStreamIcon}
+                      alt="Open stream"
+                      className="h-5 w-5"
+                    />
+                  </Link>
+                )}
+
+                {stream.status === 'error' && (
+                  <img
+                    src={errorStreamIcon}
+                    alt="Camera error"
+                    className="ml-2 h-5 w-5"
+                  />
+                )}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {cameraBackend.stream_type}
+                {stream.streamType}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {cameraBackend.source_type}
+                {stream.sourceType}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {cameraBackend.stream_url}
+                {stream.streamUrl}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {cameraBackend.fps ?? '—'}
+                {stream.fps ?? '—'}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {cameraBackend.resolution ?? '—'}
+                {stream.resolution ?? '—'}
               </td>
 
               <td className="px-4 py-3 text-sm text-gray-700">
-                {cameraBackend.last_frame_at
-                  ? new Date(cameraBackend.last_frame_at).toLocaleTimeString()
+                {stream.lastFrameAt
+                  ? new Date(stream.lastFrameAt).toLocaleTimeString()
                   : '—'}
               </td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
     </div>

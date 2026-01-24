@@ -9,9 +9,31 @@ export function StreamAddPage() {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [cameraBackend, setCameraBackend] = useState([{}]);
+  const [streams, setStreams] = useState([{}]);
   const [notification, setNotification] = useState({ show: false, message: "", success: false });
   // const [error, setError] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchStreamData = async () => {
+      try {
+        const response = await axios.get('/api/streams');
+        console.log('Stream status response:', response.data);
+
+        setStreams(response.data);
+
+        if (response.data.length > 0) {
+          setLoading(true);
+        }
+
+      } catch (error) {
+        console.error('Failed to fetch streams:', error);
+        setStreams([]);
+      }
+    };
+
+    fetchStreamData();
+  }, []);
+
 
   const now = new Date();
 
@@ -21,13 +43,14 @@ export function StreamAddPage() {
     rtspUrl: string;
     workflowId: string;
   }) => {
-    setLoading(true);
     setIsModalOpen(false);
   };
 
-  const handleNotification = (message: string, success: boolean, data?: any) => {
-    setCameraBackend(data);
+  const handleNotification = (message: string, success: boolean) => {
     setNotification({ show: true, message, success });
+    if (!success) {
+      setLoading(false);
+    }
     setTimeout(() => {
       setNotification({ show: false, message: "", success: false });
     }, 3000);
@@ -68,7 +91,7 @@ export function StreamAddPage() {
             isLoading && (
               <div>
                 <StreamStatusTable
-                  cameraBackend={cameraBackend}
+                  streams={streams}
                 />
               </div>
             )
@@ -79,9 +102,8 @@ export function StreamAddPage() {
       {/* Notification */}
       {notification.show && (
         <div
-          className={`fixed top-4 right-4 px-6 py-3 rounded-lg text-white font-semibold shadow-lg transition-opacity duration-300 ${
-            notification.success ? "bg-green-500" : "bg-red-500"
-          }`}
+          className={`fixed top-4 right-4 px-6 py-3 rounded-lg text-white font-semibold shadow-lg transition-opacity duration-300 ${notification.success ? "bg-green-500" : "bg-red-500"
+            }`}
         >
           {notification.message}
         </div>

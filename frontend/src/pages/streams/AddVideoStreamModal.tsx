@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import "./AddVideoStreamModal.css";
 
-export function AddVideoStreamModal ({ isOpen, onClose, onCreate, onNotification }) {
+export function AddVideoStreamModal({ isOpen, onClose, onCreate, onNotification }) {
   const [form, setForm] = useState({
     name: "",
     streamType: "",
@@ -20,16 +20,17 @@ export function AddVideoStreamModal ({ isOpen, onClose, onCreate, onNotification
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    onCreate(form);
 
-    // console.log("Submitting form:", form);
+    console.log("Submitting form:", form);
 
     try {
-      const response = await axios.post("http://localhost:8000/stream", form);
-      console.log("Stream created:", response.data);
-      onNotification("Stream created successfully!", true, response.data);
+      const response = await axios.post("/api/streams/", form);
+
+      // onCreate(response.data); // now safe
+      onNotification("Stream created successfully!", true);
+      onClose();
     } catch (error) {
-      console.error("Error creating stream:", error);
+      console.error("Error creating stream:", error.response?.data);
       onNotification("Failed to create stream.", false);
     }
   };

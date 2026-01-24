@@ -37,7 +37,6 @@ bin/
 *.sqlite3
 log.txt
 *.log
-*.ini
 
 # --- IDEs and Editors ---
 .vscode/
