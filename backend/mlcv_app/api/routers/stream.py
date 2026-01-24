@@ -1,11 +1,42 @@
+import cv2
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status, Request
+from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 from mlcv_app.schemas.stream import StreamIn, StreamOut
 from mlcv_app.core.database import get_db as get_session
 from mlcv_app.models.stream import Stream as StreamModel
 
 router = APIRouter()
+
+def generate_frames():
+  cap = cv2.VideoCapture(0)
+
+  if not cap.isOpened():
+      raise RuntimeError("Could not open webcam")
+
+  while True:
+    success, frame = cap.read()
+    if not success:
+        break
+
+    # Encode frame as JPEG
+    ret, buffer = cv2.imencode(".jpg", frame)
+    frame_bytes = buffer.tobytes()
+
+    yield (
+        b"--frame\r\n"
+        b"Content-Type: image/jpeg\r\n\r\n"
+        + frame_bytes
+        + b"\r\n"
+    )
+    
+@router.get("/live")
+def live_stream():
+  return StreamingResponse(
+    generate_frames(),
+    media_type="multipart/x-mixed-replace; boundary=frame"
+  )
 
 @router.get(
   '/',

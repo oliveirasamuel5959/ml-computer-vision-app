@@ -11,17 +11,14 @@ export function LiveStream() {
           <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
             Live Stream
           </h1>
-          
+
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <div className="bg-black aspect-video flex items-center justify-center">
-              <video
+              <img
+                src={`/api/streams/live`}
+                alt="Live Stream"
                 className="w-full h-full object-cover"
-                controls
-                autoPlay
-              >
-                <source src={`/api/streams/${streamId}/live`} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              />
             </div>
           </div>
 
