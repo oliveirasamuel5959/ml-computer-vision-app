@@ -15,7 +15,7 @@ export function LiveStream() {
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <div className="bg-black aspect-video flex items-center justify-center">
               <img
-                src={`/api/streams/live`}
+                src={`/api/streams/${streamId}/live`}
                 alt="Live Stream"
                 className="w-full h-full object-cover"
               />

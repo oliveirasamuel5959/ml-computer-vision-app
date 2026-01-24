@@ -6,35 +6,28 @@ from sqlalchemy.orm import Session
 from mlcv_app.schemas.stream import StreamIn, StreamOut
 from mlcv_app.core.database import get_db as get_session
 from mlcv_app.models.stream import Stream as StreamModel
+from mlcv_app.services.camera_manager import CameraManager
 
 router = APIRouter()
-
-def generate_frames():
-  cap = cv2.VideoCapture(0)
-
-  if not cap.isOpened():
-      raise RuntimeError("Could not open webcam")
-
-  while True:
-    success, frame = cap.read()
-    if not success:
-        break
-
-    # Encode frame as JPEG
-    ret, buffer = cv2.imencode(".jpg", frame)
-    frame_bytes = buffer.tobytes()
-
-    yield (
-        b"--frame\r\n"
-        b"Content-Type: image/jpeg\r\n\r\n"
-        + frame_bytes
-        + b"\r\n"
-    )
     
-@router.get("/live")
-def live_stream():
+@router.get("/{stream_id}/live")
+def live_stream(stream_id: int, db: Session = Depends(get_session)):
+  stream = (
+      db.query(StreamModel)
+      .filter(StreamModel.id == stream_id)
+      .filter(StreamModel.status == "running")
+      .first()
+  )
+  
+  print("Requested stream: ", stream.id)
+
+  if not stream:
+      raise HTTPException(status_code=404, detail="Stream not found or inactive")
+
+  camera_manager = CameraManager(stream_data=stream)
+
   return StreamingResponse(
-    generate_frames(),
+    camera_manager.generate(),
     media_type="multipart/x-mixed-replace; boundary=frame"
   )
 
