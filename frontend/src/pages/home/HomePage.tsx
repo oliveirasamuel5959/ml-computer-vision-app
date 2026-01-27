@@ -20,10 +20,42 @@ export function HomePage() {
       <title>Home</title>
 
       <Sidebar>
+        {/* Welcome Section */}
+        <div className="bg-gradient-to-r from-blue-900 to-blue-800 p-8 border-b border-blue-700">
+          <h1 className="text-4xl font-bold text-white mb-2">
+            Welcome to ML Computer Vision App
+          </h1>
+          <p className="text-lg text-blue-100 mb-4">
+            Your advanced solution for real-time video stream analysis and computer vision processing.
+          </p>
+          
+          {/* App Features */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+            <div className="bg-blue-700 bg-opacity-50 rounded-lg p-4">
+              <h3 className="text-white font-semibold mb-2">📹 Live Streaming</h3>
+              <p className="text-blue-100 text-sm">
+                Connect and monitor multiple video streams in real-time with advanced processing capabilities.
+              </p>
+            </div>
+            <div className="bg-blue-700 bg-opacity-50 rounded-lg p-4">
+              <h3 className="text-white font-semibold mb-2">🤖 AI Analysis</h3>
+              <p className="text-blue-100 text-sm">
+                Leverage machine learning models to detect, classify, and analyze objects in your video feeds.
+              </p>
+            </div>
+            <div className="bg-blue-700 bg-opacity-50 rounded-lg p-4">
+              <h3 className="text-white font-semibold mb-2">📊 Dashboard</h3>
+              <p className="text-blue-100 text-sm">
+                View comprehensive analytics and insights from your video stream analysis.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Page Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
           <p className="text-lg font-semibold text-blue-600">
-            Pull Request
+            Featured Products
           </p>
         </div>
 
