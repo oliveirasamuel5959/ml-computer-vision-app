@@ -23,7 +23,7 @@ export function HomePage() {
         {/* Page Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
           <p className="text-lg font-semibold text-blue-600">
-            Home Page
+            Pull Request
           </p>
         </div>
 
